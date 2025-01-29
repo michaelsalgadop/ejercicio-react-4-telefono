@@ -1,3 +1,5 @@
+import propTypes from "prop-types";
+
 export const Accion = (props) => {
   const { accion, numeroCompleto, callbackClick } = props;
   return (
@@ -9,4 +11,9 @@ export const Accion = (props) => {
       {accion.charAt(0).toUpperCase() + accion.slice(1)}
     </a>
   );
+};
+Accion.propTypes = {
+  accion: propTypes.string.isRequired,
+  numeroCompleto: propTypes.bool.isRequired,
+  callbackClick: propTypes.func.isRequired,
 };

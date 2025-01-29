@@ -1,5 +1,5 @@
 import { Tecla } from "./Tecla";
-
+import propTypes from "prop-types";
 export const Teclado = (props) => {
   const { llamando, numeroCompleto, numero, setNumero } = props;
   const teclas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -27,4 +27,10 @@ export const Teclado = (props) => {
       </li>
     </ol>
   );
+};
+Teclado.propTypes = {
+  llamando: propTypes.bool.isRequired,
+  numeroCompleto: propTypes.bool.isRequired,
+  numero: propTypes.string.isRequired,
+  setNumero: propTypes.func.isRequired,
 };

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Accion } from "./Accion";
-
+import propTypes from "prop-types";
 // eslint-disable-next-line no-lone-blocks
 {
   /* <!-- El botón de llamar debe tener la clase "activo" cuando -->
@@ -41,4 +41,11 @@ export const Acciones = (props) => {
       )}
     </>
   );
+};
+
+Acciones.propTypes = {
+  setLlamando: propTypes.func.isRequired,
+  setNumero: propTypes.func.isRequired,
+  llamando: propTypes.bool.isRequired,
+  numeroCompleto: propTypes.bool.isRequired,
 };

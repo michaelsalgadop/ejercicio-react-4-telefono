@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 export const Info = (props) => {
   const { llamando } = props;
   {
@@ -6,4 +7,7 @@ export const Info = (props) => {
   return (
     <span className={`mensaje ${!llamando ? "off" : ""}`}>Llamando...</span>
   );
+};
+Info.propTypes = {
+  llamando: propTypes.bool.isRequired,
 };
