@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Accion } from "./Accion";
 import propTypes from "prop-types";
 // eslint-disable-next-line no-lone-blocks
@@ -12,26 +12,15 @@ export const Acciones = (props) => {
   const { setLlamando, setNumero, llamando, numeroCompleto } = props;
   const timer = useRef(null);
 
-  useEffect(() => {
-    if (llamando) {
-      // Si se activa "llamar", inicia el timeout para colgar
-      timer.current = setTimeout(() => colgar(), 5000);
-    } else {
-      // Si "colgar" se ejecuta, limpia el timeout
-      clearTimeout(timer.current);
-    }
-
-    return () => clearTimeout(timer.current); // Limpieza en cada renderizado
-  }, [llamando]);
-
   const llamar = (e) => {
     e.preventDefault();
     setLlamando(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => colgar(e), 5000);
   };
-
   const colgar = (e) => {
-    if (e) e.preventDefault(); // Para evitar errores si se llama sin evento
-    clearTimeout(timer.current); // Limpia el timeout antes de colgar
+    e.preventDefault();
+    clearTimeout(timer.current);
     setLlamando(false);
     setNumero("");
   };
