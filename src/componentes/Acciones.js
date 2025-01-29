@@ -1,52 +1,42 @@
 import { useRef } from "react";
 import { Accion } from "./Accion";
 
+// eslint-disable-next-line no-lone-blocks
+{
+  /* <!-- El botón de llamar debe tener la clase "activo" cuando -->
+<!-- el número de teléfono tiene 9 cifras --> 
+<!-- Sólo se tiene que ver un botón u otro -->
+*/
+}
 export const Acciones = (props) => {
-  const {
-    setOcultarMensaje,
-    setAccionTelefono,
-    borrarNumero,
-    LLAMAR,
-    COLGAR,
-    accionTelefono,
-    botonLlamar,
-  } = props;
+  const { setLlamando, setNumero, llamando, numeroCompleto } = props;
   const timer = useRef(null);
-  // eslint-disable-next-line no-lone-blocks
-  {
-    /* <!-- El botón de llamar debe tener la clase "activo" cuando -->
-      <!-- el número de teléfono tiene 9 cifras --> */
-    /* <!-- Sólo se tiene que ver un botón u otro --> */
-  }
-  const llamar = () => {
-    setOcultarMensaje(false);
-    setAccionTelefono(COLGAR);
+
+  const llamar = (e) => {
+    e.preventDefault();
+    setLlamando(true);
     clearTimeout(timer.current);
-    timer.current = setTimeout(() => colgar(), 5000);
+    timer.current = setTimeout(() => colgar(e), 5000);
   };
-  const colgar = () => {
+  const colgar = (e) => {
+    e.preventDefault();
     clearTimeout(timer.current);
-    setOcultarMensaje(true);
-    setAccionTelefono(LLAMAR);
-    borrarNumero();
+    setLlamando(false);
+    setNumero("");
   };
   return (
     <>
-      {accionTelefono === LLAMAR && (
+      {!llamando ? (
         <Accion
           accion="llamar"
-          classes="llamar"
-          botonLlamar={botonLlamar}
-          accionClick={llamar}
+          numeroCompleto={numeroCompleto}
+          callbackClick={llamar}
         ></Accion>
-      )}
-
-      {accionTelefono === COLGAR && (
+      ) : (
         <Accion
           accion="colgar"
-          classes="colgar"
-          botonLlamar={botonLlamar}
-          accionClick={colgar}
+          numeroCompleto={numeroCompleto}
+          callbackClick={colgar}
         ></Accion>
       )}
     </>

@@ -1,12 +1,12 @@
 export const Accion = (props) => {
-  const { accion, botonLlamar, accionClick, classes } = props;
+  const { accion, numeroCompleto, callbackClick } = props;
   return (
     <a
-      href="#"
-      className={`${classes} ${botonLlamar ? "activo" : ""}`}
-      onClick={accionClick}
+      href={accion}
+      className={`${accion} ${numeroCompleto && "activo"}`}
+      onClick={callbackClick}
     >
-      {accion.charAt(0).toUpperCase() + accion.slice(1).toLowerCase()}
+      {accion.charAt(0).toUpperCase() + accion.slice(1)}
     </a>
   );
 };

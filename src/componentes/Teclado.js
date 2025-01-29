@@ -1,36 +1,30 @@
 import { Tecla } from "./Tecla";
 
 export const Teclado = (props) => {
-  const {
-    numeroMarcado,
-    setBotonLlamar,
-    setNumeroMarcado,
-    borrarNumero,
-    accionTelefono,
-    COLGAR,
-  } = props;
-  const teclado = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "borrar"];
-  const marcarNumero = (numero) => {
-    if (numeroMarcado.length + 1 === 9) {
-      setBotonLlamar(true);
-    } else if (numeroMarcado.length === 9) {
-      return;
-    }
-    setNumeroMarcado(numeroMarcado + numero);
-  };
+  const { llamando, numeroCompleto, numero, setNumero } = props;
+  const teclas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  const marcarNumero = (numeroTecleado) =>
+    !numeroCompleto && setNumero(numero + numeroTecleado);
   return (
     <ol className="teclado">
-      {teclado.map((tecla) => (
+      {teclas.map((tecla) => (
         <li key={tecla}>
           <Tecla
+            accion={() => marcarNumero(tecla)}
             tecla={tecla}
-            borrarNumero={borrarNumero}
-            accionTelefono={accionTelefono}
-            COLGAR={COLGAR}
-            marcarNumero={marcarNumero}
+            llamando={llamando}
           ></Tecla>
         </li>
       ))}
+      <li>
+        <button
+          className="big"
+          onClick={() => setNumero("")}
+          disabled={llamando}
+        >
+          borrar
+        </button>
+      </li>
     </ol>
   );
 };

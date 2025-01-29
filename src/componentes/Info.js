@@ -1,11 +1,9 @@
 export const Info = (props) => {
-  const { ocultarMensaje } = props;
+  const { llamando } = props;
   {
     /* <!-- El siguiente elemento se oculta añadiéndole la clase "off" --> */
   }
   return (
-    <span className={`mensaje ${ocultarMensaje ? "off" : ""}`}>
-      Llamando...
-    </span>
+    <span className={`mensaje ${!llamando ? "off" : ""}`}>Llamando...</span>
   );
 };

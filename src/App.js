@@ -1,44 +1,32 @@
 import { useState } from "react";
 import { Info } from "./componentes/Info";
+import { Teclado } from "./componentes/Teclado";
 import { Display } from "./componentes/Display";
 import { Acciones } from "./componentes/Acciones";
-import { Teclado } from "./componentes/Teclado";
 
 function App() {
-  const LLAMAR = 0;
-  const COLGAR = 1;
-  const [numeroMarcado, setNumeroMarcado] = useState("");
-  const [ocultarMensaje, setOcultarMensaje] = useState(true);
-  const [accionTelefono, setAccionTelefono] = useState(LLAMAR);
-  const [botonLlamar, setBotonLlamar] = useState(false);
-  const borrarNumero = () => {
-    setNumeroMarcado("");
-    setBotonLlamar(false);
-  };
+  const [numero, setNumero] = useState("");
+  const [llamando, setLlamando] = useState(false);
+  const numeroCompleto = numero.length === 9;
   return (
     <div className="contenedor">
-      <Info ocultarMensaje={ocultarMensaje}></Info>
+      <Info llamando={llamando}></Info>
       <main className="telefono">
         <div className="botones">
           <Teclado
-            numeroMarcado={numeroMarcado}
-            setBotonLlamar={setBotonLlamar}
-            setNumeroMarcado={setNumeroMarcado}
-            borrarNumero={borrarNumero}
-            accionTelefono={accionTelefono}
-            COLGAR={COLGAR}
+            llamando={llamando}
+            numeroCompleto={numeroCompleto}
+            numero={numero}
+            setNumero={setNumero}
           ></Teclado>
         </div>
         <div className="acciones">
-          <Display numeroMarcado={numeroMarcado}></Display>
+          <Display numero={numero}></Display>
           <Acciones
-            setOcultarMensaje={setOcultarMensaje}
-            setAccionTelefono={setAccionTelefono}
-            borrarNumero={borrarNumero}
-            LLAMAR={LLAMAR}
-            COLGAR={COLGAR}
-            accionTelefono={accionTelefono}
-            botonLlamar={botonLlamar}
+            setLlamando={setLlamando}
+            setNumero={setNumero}
+            llamando={llamando}
+            numeroCompleto={numeroCompleto}
           ></Acciones>
         </div>
       </main>
